@@ -1,0 +1,14 @@
+{
+  "name": "carbon-sink-calculation",
+  "version-semver": "0.1.0",
+  "dependencies": [
+    {
+      "name": "xlnt"
+    },
+    {
+      "name": "fmt"
+    }
+  ],
+  "default-features": []
+
+}
