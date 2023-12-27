@@ -39,7 +39,7 @@ set(PROJECT_SOURCES
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_resources(
         ui_style
-        ${CMAKE_CURRENT_SOURCE_DIR}/style/lightstyle.qrc
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/app.qrc
     )
     qt_add_executable(carbon-sink-calculation
         MANUAL_FINALIZATION
@@ -53,7 +53,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     qt5_add_resources(
       ui_style
-      ${CMAKE_CURRENT_SOURCE_DIR}/style/lightstyle.qrc
+      ${CMAKE_CURRENT_SOURCE_DIR}/style/app.qrc
     )
 
     if(ANDROID)
