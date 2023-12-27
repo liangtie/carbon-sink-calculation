@@ -34,25 +34,39 @@ set(PROJECT_SOURCES
       source/mainwindow.ui
 )
 
+
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_resources(
+        ui_style
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/lightstyle.qrc
+    )
     qt_add_executable(carbon-sink-calculation
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${ui_style}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET carbon-sink-calculation APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
+    qt5_add_resources(
+      ui_style
+      ${CMAKE_CURRENT_SOURCE_DIR}/style/lightstyle.qrc
+    )
+
     if(ANDROID)
         add_library(carbon-sink-calculation SHARED
             ${PROJECT_SOURCES}
+            ${ui_style}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(carbon-sink-calculation
             ${PROJECT_SOURCES}
+            ${ui_style}
         )
     endif()
 endif()
