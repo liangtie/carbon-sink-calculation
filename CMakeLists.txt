@@ -24,6 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(fmt REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(Xlnt CONFIG REQUIRED)
 
 # ---- Declare executable ----
 
@@ -78,7 +80,12 @@ set_property(TARGET carbon-sink-calculation PROPERTY OUTPUT_NAME carbon-sink-cal
 
 target_compile_features(carbon-sink-calculation PRIVATE cxx_std_20)
 
-target_link_libraries(carbon-sink-calculation PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(carbon-sink-calculation
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    nlohmann_json::nlohmann_json
+    xlnt::xlnt
+  )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
