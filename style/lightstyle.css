@@ -1016,6 +1016,16 @@ QPushButton {
   border: none;
 }
 
+QLineEdit#editPass,QLineEdit#editUser {
+  min-width: 86px;
+  min-height: 24px;
+  padding: 6px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+
 QPushButton:disabled {
   background-color: #C0C4C8;
   color: #9DA9B5;
