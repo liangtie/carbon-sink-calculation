@@ -1,18 +1,6 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.5)
 
-include(cmake/prelude.cmake)
-
-project(
-    carbon-sink-calculation
-    VERSION 0.1.0
-    DESCRIPTION "Short description"
-    HOMEPAGE_URL "https://example.com/"
-    LANGUAGES CXX
-)
-
-include(cmake/project-is-top-level.cmake)
-include(cmake/variables.cmake)
-
+project(carbon-sink-calculation VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -23,15 +11,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(fmt REQUIRED)
-
-# ---- Declare executable ----
 
 set(PROJECT_SOURCES
-      source/main.cpp
-      source/mainwindow.cpp
-      source/mainwindow.h
-      source/mainwindow.ui
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -56,10 +41,6 @@ else()
         )
     endif()
 endif()
-
-set_property(TARGET carbon-sink-calculation PROPERTY OUTPUT_NAME carbon-sink-calculation)
-
-target_compile_features(carbon-sink-calculation PRIVATE cxx_std_20)
 
 target_link_libraries(carbon-sink-calculation PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
@@ -87,16 +68,3 @@ install(TARGETS carbon-sink-calculation
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(carbon-sink-calculation)
 endif()
-
-# ---- Developer mode ----
-
-if(NOT carbon-sink-calculation_DEVELOPER_MODE)
-  return()
-elseif(NOT PROJECT_IS_TOP_LEVEL)
-  message(
-      AUTHOR_WARNING
-      "Developer mode is intended for developers of carbon-sink-calculation"
-  )
-endif()
-
-include(cmake/dev-mode.cmake)

@@ -1,12 +1,11 @@
-#include <iostream>
-#include <string>
+#include "mainwindow.h"
 
-#include "lib.hpp"
+#include <QApplication>
 
-auto main() -> int
+int main(int argc, char *argv[])
 {
-  auto const lib = library {};
-  auto const message = "Hello from " + lib.name + "!";
-  std::cout << message << '\n';
-  return 0;
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }

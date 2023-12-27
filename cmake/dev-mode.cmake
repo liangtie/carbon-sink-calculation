@@ -2,10 +2,10 @@ include(cmake/folders.cmake)
 
 add_custom_target(
     run-exe
-    COMMAND carbon-sink-calculation_exe
+    COMMAND carbon-sink-calculation
     VERBATIM
 )
-add_dependencies(run-exe carbon-sink-calculation_exe)
+add_dependencies(run-exe carbon-sink-calculation)
 
 option(BUILD_MCSS_DOCS "Build documentation using Doxygen and m.css" OFF)
 if(BUILD_MCSS_DOCS)

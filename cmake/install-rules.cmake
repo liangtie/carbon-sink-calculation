@@ -1,5 +1,5 @@
 install(
-    TARGETS carbon-sink-calculation_exe
+    TARGETS carbon-sink-calculation
     RUNTIME COMPONENT carbon-sink-calculation_Runtime
 )
 
