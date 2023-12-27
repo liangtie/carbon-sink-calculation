@@ -7,6 +7,9 @@
     },
     {
       "name": "fmt"
+    },
+    {
+      "name" :"nlohmann-json"
     }
   ],
   "default-features": []
