@@ -3,7 +3,9 @@
 
 #include <QMap>
 #include <QString>
-
+using PCM =
+    std::map<std::string, std::map<std::string, std::list<std::string>>>;
+static const auto UN_SELECTED = "--";
 class PcaModel
 {
   public:
@@ -17,7 +19,7 @@ class PcaModel
     auto getAreas(QString province, QString city) -> QStringList;
 
   private:
-    QMap<QString, QMap<QString, QStringList>> _pcb;
+    PCM _pcm;
 };
 
 #endif

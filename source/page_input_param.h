@@ -2,7 +2,8 @@
 #define PAGE_INPUT_PARAM_H
 
 #include <QWidget>
-
+#include <memory>
+#include "pca_model.h"
 namespace Ui {
 class PageInputParam;
 }
@@ -17,6 +18,7 @@ class PageInputParam : public QWidget
 
   private:
     Ui::PageInputParam *ui;
+    std::unique_ptr<PcaModel> _pcaModel;
 };
 
 #endif // PAGE_INPUT_PARAM_H

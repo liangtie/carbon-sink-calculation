@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget* parent)
     connect(_pageLogin,
             &PageLogin::AccountVerifyPass,
             [this]() {
-
-                qDebug() <<"1";
                 ui->stackedWidget->setCurrentWidget(_pageInputParam); });
 }
 
