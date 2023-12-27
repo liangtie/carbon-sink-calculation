@@ -2,11 +2,11 @@
 #define PCA_MODEL_H
 
 
-class pca_model
+class PcaModel
 {
 public:
-    pca_model();
-    ~pca_model();
+    PcaModel();
+    ~PcaModel();
 
 private:
 

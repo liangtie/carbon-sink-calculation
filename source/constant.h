@@ -2,11 +2,11 @@
 #define CONSTANT_H
 
 
-class constant
+class Constant
 {
 public:
-    constant();
-    ~constant();
+    Constant();
+    ~Constant();
 
 private:
 

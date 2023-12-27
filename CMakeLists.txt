@@ -28,10 +28,13 @@ find_package(fmt REQUIRED)
 # ---- Declare executable ----
 
 set(PROJECT_SOURCES
-      source/main.cpp
-      source/mainwindow.cpp
-      source/mainwindow.h
-      source/mainwindow.ui
+    source/carbon_sink_calculator.cpp
+    source/main.cpp
+    source/network_interaction.cpp
+    source/carbon_sink_exporter.cpp
+    source/mainwindow.cpp
+    source/mainwindow.ui
+    source/pca_model.cpp
 )
 
 

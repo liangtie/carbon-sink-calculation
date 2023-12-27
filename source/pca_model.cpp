@@ -1,11 +1,11 @@
 #include "pca_model.h"
 
-pca_model::pca_model()
+PcaModel::PcaModel()
 {
 
 }
 
-pca_model::~pca_model()
+PcaModel::~PcaModel()
 {
 
 }
