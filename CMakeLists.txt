@@ -34,6 +34,7 @@ set(PROJECT_SOURCES
     source/main.cpp
     source/network_interaction.cpp
     source/carbon_sink_exporter.cpp
+    source/carbon_sink_form.cpp
     source/mainwindow.cpp
     source/mainwindow.ui
     source/pca_model.cpp
