@@ -3,11 +3,13 @@
 
 #include <QWidget>
 #include <memory>
-#include "pca_model.h"
 namespace Ui {
 class PageInputParam;
 }
 
+struct CarbonSinkForm;
+using CarbonSinkFormPtr = std::shared_ptr<CarbonSinkForm>;
+class PcaModel;
 class PageInputParam : public QWidget
 {
     Q_OBJECT
@@ -15,6 +17,8 @@ class PageInputParam : public QWidget
   public:
     explicit PageInputParam(QWidget *parent = nullptr);
     ~PageInputParam();
+
+    [[nodiscard]] auto exportForm() const ->  CarbonSinkFormPtr;
 
   private:
     Ui::PageInputParam *ui;

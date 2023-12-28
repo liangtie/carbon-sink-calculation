@@ -2,9 +2,6 @@
 #define PAGE_LOGIN_H
 
 #include <QWidget>
-
-#include <qtmetamacros.h>
-
 namespace Ui
 {
 class PageLogin;

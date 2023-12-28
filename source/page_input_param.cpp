@@ -1,9 +1,8 @@
 #include <memory>
-
-#include "page_input_param.h"
-
 #include <qcombobox.h>
 
+#include "page_input_param.h"
+#include "pca_model.h"
 #include "ui_page_input_param.h"
 
 PageInputParam::PageInputParam(QWidget* parent)
@@ -40,4 +39,9 @@ PageInputParam::PageInputParam(QWidget* parent)
 PageInputParam::~PageInputParam()
 {
     delete ui;
+}
+
+auto PageInputParam::exportForm() const ->  CarbonSinkFormPtr
+{
+    return {};
 }

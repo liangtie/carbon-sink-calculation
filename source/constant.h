@@ -1,15 +1,22 @@
 #ifndef CONSTANT_H
 #define CONSTANT_H
 
+#include <QMap>
 
-class Constant
-{
-public:
-    Constant();
-    ~Constant();
 
-private:
+namespace constant{
+
+enum BuildingType{
+PB,
+IB,
 
 };
+
+static const auto ReadableBuildingType = QMap<int ,QString>{
+
+};
+
+
+}
 
 #endif

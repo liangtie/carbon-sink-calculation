@@ -3,8 +3,8 @@
 
 struct CarbonSinkForm
 {
-    int year;
-    double area;
+    int _year;
+    double _area;
     double polygon;
     int floorCount;
     double height;
