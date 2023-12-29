@@ -1,14 +1,16 @@
+
+#include "carbon_sink_exporter.h"
+#include "carbon_sink_form.h"
+#include "constant.h"
+#include "utils.h"
+
+
+#include <qdatetime.h>
+#include <xlnt/xlnt.hpp>
 #include <QDateTime>
 #include <QString>
 #include <utility>
 
-#include "carbon_sink_exporter.h"
-
-#include <qdatetime.h>
-#include <xlnt/xlnt.hpp>
-
-#include "carbon_sink_form.h"
-#include "constant.h"
 
 constexpr auto EXCEL_SUFFIX = ".xlsx";
 
@@ -107,9 +109,7 @@ void CarbonSinkExporter::exportToExcel(
                     ws.cell(col, row).value(f->carbonSink());
                     break;
                 case CarbonSinkForm::CURRENT_DATE_TIME:
-                    ws.cell(col, row).value(QDateTime::currentDateTime()
-                                                .toString("yyyy-MM-dd hh:mm:ss")
-                                                .toStdString());
+                    ws.cell(col, row).value(Utils::getCurrentDateTime());
                     break;
             }
         }

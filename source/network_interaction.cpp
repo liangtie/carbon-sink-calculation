@@ -1,6 +1,7 @@
+#include <memory>
 #include "network_interaction.h"
 
-NetworkInteraction::NetworkInteraction()
+NetworkInteraction::NetworkInteraction():_netAccess(std::make_unique<QNetworkAccessManager>())
 {
 
 }

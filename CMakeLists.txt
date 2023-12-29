@@ -21,8 +21,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS  Widgets Network)
 find_package(fmt REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(Xlnt CONFIG REQUIRED)
@@ -41,6 +41,7 @@ set(PROJECT_SOURCES
     source/page_login.ui
     source/page_input_param.cpp
     source/page_input_param.ui
+    source/utils.cpp
 )
 
 
@@ -88,6 +89,7 @@ target_compile_features(carbon-sink-calculation PRIVATE cxx_std_20)
 target_link_libraries(carbon-sink-calculation
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Network
     nlohmann_json::nlohmann_json
     xlnt::xlnt
   )
