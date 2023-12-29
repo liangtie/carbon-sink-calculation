@@ -97,15 +97,6 @@ PageInputParam::PageInputParam(QWidget* parent)
                 }
                 _forms.push_back(exportForm());
             }
-            if (QMessageBox::Yes
-                == QMessageBox::warning(this,
-                                        "警告",
-                                        "是否清空当前表单?",
-                                        QMessageBox::StandardButton::Yes,
-                                        QMessageBox::StandardButton::No))
-            {
-                clearForm();
-            }
         });
     connect(ui->btnCancel, &QPushButton::clicked, this, [&]() { clearForm(); });
 
@@ -127,16 +118,6 @@ PageInputParam::PageInputParam(QWidget* parent)
 
                 CarbonSinkExporter exporter;
                 exporter.exportToExcel(_forms, savePath);
-
-                if (QMessageBox::Yes
-                    == QMessageBox::warning(this,
-                                            "警告",
-                                            "是否清空当前表单?",
-                                            QMessageBox::StandardButton::Yes,
-                                            QMessageBox::StandardButton::No))
-                {
-                    clearForm();
-                }
             });
 
     connect(ui->btnHelp,
