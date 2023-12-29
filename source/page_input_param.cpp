@@ -1,7 +1,20 @@
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QValidator>
 #include <memory>
-#include <qcombobox.h>
 
 #include "page_input_param.h"
+
+#include <qcombobox.h>
+#include <qfiledialog.h>
+#include <qlineedit.h>
+#include <qmessagebox.h>
+#include <qvalidator.h>
+#include <qvariant.h>
+
+#include "carbon_sink_exporter.h"
+#include "carbon_sink_form.h"
+#include "constant.h"
 #include "pca_model.h"
 #include "ui_page_input_param.h"
 
@@ -30,10 +43,113 @@ PageInputParam::PageInputParam(QWidget* parent)
                 if (p == UN_SELECTED || p.isEmpty())
                     return;
 
-                ui->cbCounty->addItems(_pcaModel->getAreas(ui->cbProvince->currentText(),  p));
+                ui->cbCounty->addItems(
+                    _pcaModel->getAreas(ui->cbProvince->currentText(), p));
+            });
+
+    connect(ui->cbCementType,
+            &QComboBox::currentTextChanged,
+            [&](QString const& p)
+            {
+                ui->cbCementRank->clear();
+                if (p.isEmpty())
+                    return;
+
+                ui->cbCementRank->addItems(constant::CementType[p].keys());
             });
 
     ui->cbProvince->addItems(_pcaModel->getProvinces());
+
+    for (const auto& [c, v] : constant::ReadableBuildingType)
+        ui->cbBuildingType->addItem(v, c);
+
+    for (const auto& [c, v] : constant::ConcreteStrengthGrade)
+        ui->cbConcreteRank->addItem(c, QVariant::fromValue(v));
+
+    for (const auto& [c, v] : constant::BuildingStructureType)
+        ui->cbBuildingStructType->addItem(c, QVariant::fromValue(v));
+
+    ui->cbCementType->addItems(constant::CementType.keys());
+
+    ui->editArea->setValidator(new QDoubleValidator);
+    ui->editBuildingYear->setValidator(new QIntValidator(0, 200));
+    ui->editCircumference->setValidator(new QDoubleValidator);
+    ui->editCount->setValidator(new QIntValidator);
+    ui->editFloorCount->setValidator(new QIntValidator);
+    ui->editHeight->setValidator(new QDoubleValidator);
+
+    connect(
+        ui->btnAddNewEntry,
+        &QPushButton::clicked,
+        this,
+        [&]()
+        {
+            if (QMessageBox::Yes
+                == QMessageBox::information(this,
+                                            "提示",
+                                            "是否提交当前表单?",
+                                            QMessageBox::StandardButton::Yes,
+                                            QMessageBox::StandardButton::No))
+            {
+                if (!formIsValid()) {
+                    QMessageBox::warning(this, "错误", "无效的表单");
+                    return;
+                }
+                _forms.push_back(exportForm());
+            }
+            if (QMessageBox::Yes
+                == QMessageBox::warning(this,
+                                        "警告",
+                                        "是否清空当前表单?",
+                                        QMessageBox::StandardButton::Yes,
+                                        QMessageBox::StandardButton::No))
+            {
+                clearForm();
+            }
+        });
+    connect(ui->btnCancel, &QPushButton::clicked, this, [&]() { clearForm(); });
+
+    connect(ui->btnConfirm,
+            &QPushButton::clicked,
+            this,
+            [&]()
+            {
+                if (!formIsValid()) {
+                    QMessageBox::warning(this, "错误", "无效的表单");
+                    return;
+                }
+                _forms.push_back(exportForm());
+                auto savePath =
+                    QFileDialog::getSaveFileName(this, "选择Excel保存路径");
+
+                if (savePath.isEmpty())
+                    return;
+
+                CarbonSinkExporter exporter;
+                exporter.exportToExcel(_forms, savePath);
+
+                if (QMessageBox::Yes
+                    == QMessageBox::warning(this,
+                                            "警告",
+                                            "是否清空当前表单?",
+                                            QMessageBox::StandardButton::Yes,
+                                            QMessageBox::StandardButton::No))
+                {
+                    clearForm();
+                }
+            });
+
+    connect(ui->btnHelp,
+            &QPushButton::clicked,
+            this,
+            [&]()
+            {
+                QMessageBox::information(
+                    this,
+                    "提示",
+                    "建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
+                    "2023年)仍在使用，应填入73。输入1~200 内整数");
+            });
 }
 
 PageInputParam::~PageInputParam()
@@ -41,7 +157,42 @@ PageInputParam::~PageInputParam()
     delete ui;
 }
 
-auto PageInputParam::exportForm() const ->  CarbonSinkFormPtr
+void PageInputParam::clearForm()
 {
-    return {};
+    for (const auto& cb : findChildren<QComboBox*>())
+        cb->setCurrentIndex(0);
+
+    for (const auto& line : findChildren<QLineEdit*>())
+        line->clear();
+}
+
+auto PageInputParam::formIsValid() const -> bool
+{
+    if (ui->cbCounty->currentText() == UN_SELECTED)
+        return false;
+
+    for (const auto& line : findChildren<QLineEdit*>())
+        if (line->text().isEmpty())
+            return false;
+
+    return true;
+}
+
+auto PageInputParam::exportForm() const -> CarbonSinkFormPtr
+{
+    auto form = std::make_shared<CarbonSinkForm>();
+    form->setYear(ui->editBuildingYear->text().toInt());
+    form->setArea(ui->editArea->text().toDouble());
+    form->setCircumference(ui->editCircumference->text().toDouble());
+    form->setFloorCount(ui->editFloorCount->text().toInt());
+    form->setHeight(ui->editHeight->text().toDouble());
+    form->setBuildingCount(ui->editCount->text().toInt());
+    form->setBuildingType(ui->cbBuildingType->currentData().toInt());
+    form->setConcreteStrengthGrade(ui->cbConcreteRank->currentText());
+    form->setBuildingStructureType(ui->cbBuildingStructType->currentText());
+    form->setCementType(ui->cbCementType->currentText());
+    form->setCementStrengthGrade(ui->cbCementRank->currentText());
+    form->setAddress(ui->cbProvince->currentText() + ui->cbCity->currentText()
+                     + ui->cbCounty->currentText());
+    return form;
 }

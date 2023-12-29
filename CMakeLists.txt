@@ -30,7 +30,6 @@ find_package(Xlnt CONFIG REQUIRED)
 # ---- Declare executable ----
 
 set(PROJECT_SOURCES
-    source/carbon_sink_calculator.cpp
     source/main.cpp
     source/network_interaction.cpp
     source/carbon_sink_exporter.cpp
@@ -42,7 +41,6 @@ set(PROJECT_SOURCES
     source/page_login.ui
     source/page_input_param.cpp
     source/page_input_param.ui
-
 )
 
 
