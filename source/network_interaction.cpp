@@ -64,8 +64,6 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
 {
     QByteArray bts = rep->readAll();
     QString str(bts);
-    QMessageBox::information(nullptr, "sal", str);
-
     try {
         auto j = json::parse(str.toStdString());
         ResponseBase b;
@@ -97,15 +95,8 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
                     break;
 
                 case GET_RESULTS: {
-                    QFile f("D:/123.json");
-                    f.open(QIODevice::WriteOnly);
-                    QTextStream s(&f);
-                    s << b.data["records"].dump().c_str();
-
-
                     std::list<ResultForm> results;
                     b.data["records"].get_to(results);
-
                     for (const auto& r : results) {
                         auto ss = std::make_shared<CarbonSinkForm>();
                         ss->fromForm(r);
