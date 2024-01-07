@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QProcess>
 #include <QValidator>
 #include <memory>
 
@@ -9,6 +10,7 @@
 #include <qfiledialog.h>
 #include <qlineedit.h>
 #include <qmessagebox.h>
+#include <qprocess.h>
 #include <qvalidator.h>
 #include <qvariant.h>
 
@@ -136,7 +138,8 @@ PageInputParam::PageInputParam(QWidget* parent)
                 NetworkInteraction::getInstance().uploadResult(form->toFrom());
             }
 
-            std::list<CarbonSinkFormPtr> all_forms = NetworkInteraction::getInstance().getResultFetched();
+            std::list<CarbonSinkFormPtr> all_forms =
+                NetworkInteraction::getInstance().getResultFetched();
 
             for (const auto& f : _forms) {
                 all_forms.push_back(f);
@@ -146,13 +149,16 @@ PageInputParam::PageInputParam(QWidget* parent)
                 return;
 
             auto savePath =
-                QFileDialog::getSaveFileName(this, "选择Excel保存路径");
+                QFileDialog::getSaveFileName(this, "选择Excel保存路径" );
 
             if (savePath.isEmpty())
                 return;
 
             CarbonSinkExporter exporter;
             exporter.exportToExcel(all_forms, savePath);
+            savePath.replace("/","\\");
+            QMessageBox::information(this, "T",savePath);
+           system(("explorer \"" + savePath + "\"\n").toStdString().c_str() );
         });
 
     connect(ui->btnHelp,
