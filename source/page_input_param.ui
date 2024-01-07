@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>456</width>
-    <height>520</height>
+    <width>596</width>
+    <height>608</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -217,6 +217,20 @@
       <item row="3" column="1">
        <widget class="QComboBox" name="cbCementRank"/>
       </item>
+      <item row="12" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>计算结果(kg)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1">
+       <widget class="QLabel" name="labelResult">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -229,9 +243,6 @@
       </sizepolicy>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>20</number>
-      </property>
       <item>
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
@@ -246,39 +257,50 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnAddNewEntry">
-        <property name="text">
-         <string>增加下一条</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnHelp">
-        <property name="text">
-         <string>帮助</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnConfirm">
-        <property name="text">
-         <string>确认</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnCancel">
-        <property name="text">
-         <string>取消</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnAddUser">
-        <property name="text">
-         <string>添加用户</string>
-        </property>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="2">
+         <widget class="QPushButton" name="btnCancel">
+          <property name="text">
+           <string>取消</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="btnAddUser">
+          <property name="text">
+           <string>添加用户</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btnConfirm">
+          <property name="text">
+           <string>确认</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="btnExportExcel">
+          <property name="text">
+           <string>导出表格</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="btnHelp">
+          <property name="text">
+           <string>帮助</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btnAddNewEntry">
+          <property name="text">
+           <string>增加下一条</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <spacer name="horizontalSpacer_4">

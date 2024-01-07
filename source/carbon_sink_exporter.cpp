@@ -110,7 +110,7 @@ void CarbonSinkExporter::exportToExcel(
                     ws.cell(col, row).value(f->carbonSink());
                     break;
                 case CarbonSinkForm::CURRENT_DATE_TIME:
-                    ws.cell(col, row).value(Utils::getCurrentDateTime());
+                    ws.cell(col, row).value(f->createTime().toStdString());
                     break;
             }
         }

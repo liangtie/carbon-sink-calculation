@@ -2,6 +2,10 @@
 #define CARBON_SINK_FORM_H
 
 #include <QString>
+#include "utils.h"
+#include <optional>
+
+struct ResultForm;
 
 class CarbonSinkForm
 {
@@ -75,9 +79,23 @@ class CarbonSinkForm
     void setCementStrengthGrade(const QString& newCementStrengthGrade);
 
     QString address() const;
-    void setAddress(const QString& newAddress);
 
-    double carbonSink() const;
+    double carbonSink();
+
+    ResultForm toFrom();
+
+    void fromForm(ResultForm const& form);
+
+    QString province() const;
+    void setProvince(const QString &newProvince);
+
+    QString city() const;
+    void setCity(const QString &newCity);
+
+    QString county() const;
+    void setCounty(const QString &newCounty);
+
+    QString createTime() const;
 
   private:
     int _year {};
@@ -91,7 +109,12 @@ class CarbonSinkForm
     QString _buildingStructureType {};
     QString _cementType {};
     QString _cementStrengthGrade {};
-    QString _address {};
+    std::optional<double> _result;
+
+    QString _province;
+    QString _city;
+    QString _county;
+    QString _createTime = QString::fromStdString( Utils::getCurrentDateTime());
 };
 
 #endif

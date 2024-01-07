@@ -25,6 +25,8 @@ class PageInputParam : public QWidget
 
     [[nodiscard]] auto exportForm() const ->  CarbonSinkFormPtr;
 
+    void updateUserRole(int role);
+
   private:
     Ui::PageInputParam *ui;
     std::unique_ptr<PcaModel> _pcaModel;

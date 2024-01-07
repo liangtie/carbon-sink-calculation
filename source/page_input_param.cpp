@@ -15,8 +15,11 @@
 #include "carbon_sink_exporter.h"
 #include "carbon_sink_form.h"
 #include "constant.h"
+#include "dialog_add_new_user.h"
+#include "network_interaction.h"
 #include "pca_model.h"
 #include "ui_page_input_param.h"
+#include "user_role.h"
 
 PageInputParam::PageInputParam(QWidget* parent)
     : QWidget(parent)
@@ -109,16 +112,48 @@ PageInputParam::PageInputParam(QWidget* parent)
                     QMessageBox::warning(this, "错误", "无效的表单");
                     return;
                 }
-                _forms.push_back(exportForm());
-                auto savePath =
-                    QFileDialog::getSaveFileName(this, "选择Excel保存路径");
 
-                if (savePath.isEmpty())
-                    return;
-
-                CarbonSinkExporter exporter;
-                exporter.exportToExcel(_forms, savePath);
+                auto form = exportForm();
+                ui->labelResult->setText(
+                    QString("%1").arg(form->carbonSink(), 0, 'f', 2));
+                NetworkInteraction::getInstance().uploadResult(form->toFrom());
             });
+
+    connect(ui->btnExportExcel,
+            &QPushButton::clicked,
+            this,
+            [&]() { NetworkInteraction::getInstance().startFetchResult(); });
+
+    connect(
+        &NetworkInteraction::getInstance(),
+        &NetworkInteraction::resultReady,
+        this,
+        [&]()
+        {
+            if (formIsValid()) {
+                auto form = exportForm();
+                _forms.push_back(form);
+                NetworkInteraction::getInstance().uploadResult(form->toFrom());
+            }
+
+            std::list<CarbonSinkFormPtr> all_forms = NetworkInteraction::getInstance().getResultFetched();
+
+            for (const auto& f : _forms) {
+                all_forms.push_back(f);
+            }
+
+            if (!all_forms.size())
+                return;
+
+            auto savePath =
+                QFileDialog::getSaveFileName(this, "选择Excel保存路径");
+
+            if (savePath.isEmpty())
+                return;
+
+            CarbonSinkExporter exporter;
+            exporter.exportToExcel(all_forms, savePath);
+        });
 
     connect(ui->btnHelp,
             &QPushButton::clicked,
@@ -130,6 +165,15 @@ PageInputParam::PageInputParam(QWidget* parent)
                     "提示",
                     "建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
                     "2023年)仍在使用，应填入73。输入1~200 内整数");
+            });
+
+    connect(ui->btnAddUser,
+            &QPushButton::clicked,
+            this,
+            [&]()
+            {
+                DialogAddNewUser d(this);
+                d.exec();
             });
 }
 
@@ -173,7 +217,13 @@ auto PageInputParam::exportForm() const -> CarbonSinkFormPtr
     form->setBuildingStructureType(ui->cbBuildingStructType->currentText());
     form->setCementType(ui->cbCementType->currentText());
     form->setCementStrengthGrade(ui->cbCementRank->currentText());
-    form->setAddress(ui->cbProvince->currentText() + ui->cbCity->currentText()
-                     + ui->cbCounty->currentText());
+    form->setProvince(ui->cbProvince->currentText());
+    form->setCity(ui->cbCity->currentText());
+    form->setCounty(ui->cbCounty->currentText());
     return form;
+}
+
+void PageInputParam::updateUserRole(int role)
+{
+    ui->btnAddUser->setVisible(role == UserRoles::ADMIN);
 }

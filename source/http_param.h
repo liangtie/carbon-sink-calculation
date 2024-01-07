@@ -7,16 +7,16 @@
 
 #include "utils.h"
 
-struct AddUser
+struct AddUserForm
 {
     std::string name;
     std::string account;
     std::string password;
     std::string company;
-    int role = 3;
+    std::string role = "3";
     std::string createTime = Utils::getCurrentDateTime();
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(
-        AddUser, name, account, password, company, role, createTime)
+        AddUserForm, name, account, password, company, role, createTime)
 };
 
 struct ResultForm
@@ -39,7 +39,7 @@ struct ResultForm
     std::string structureCount;
     std::string calculateResult;
     std::string createTime;
-    std::string userId;
+    int userId;
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(ResultForm,
                                    province,
@@ -61,11 +61,28 @@ struct ResultForm
                                    calculateResult)
 };
 
-struct Login
+struct LoginForm
 {
     std::string account;
     std::string password;
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Login, account, password)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(LoginForm, account, password)
+};
+
+struct GetResultsForm
+{
+    int userId;
+    std::string role;
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetResultsForm, userId, role)
+};
+
+struct LoginResponse
+{
+    int id {};
+    std::string name;
+    std::string password;
+    std::string role;
+    bool hasFetchResult = false;
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(LoginResponse, id, name, password, role);
 };
 
 #endif

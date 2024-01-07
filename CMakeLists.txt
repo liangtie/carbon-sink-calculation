@@ -37,8 +37,8 @@ set(PROJECT_SOURCES
     source/mainwindow.cpp
     source/mainwindow.ui
     source/pca_model.cpp
-    source/page_add_new_user.cpp
-    source/page_add_new_user.ui
+    source/dialog_add_new_user.cpp
+    source/dialog_add_new_user.ui
     source/page_login.cpp
     source/page_login.ui
     source/page_input_param.cpp

@@ -16,7 +16,7 @@ class PageLogin : public QWidget
     ~PageLogin();
 
   signals:
-    void AccountVerifyPass();
+    void AccountVerifyPass(int role);
 
   private:
     Ui::PageLogin* ui;
