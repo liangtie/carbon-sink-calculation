@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
     source/mainwindow.cpp
     source/mainwindow.ui
     source/pca_model.cpp
+    source/page_add_new_user.cpp
+    source/page_add_new_user.ui
     source/page_login.cpp
     source/page_login.ui
     source/page_input_param.cpp
@@ -55,7 +57,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ${ui_style}
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET carbon-sink-calculation APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

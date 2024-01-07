@@ -10,9 +10,6 @@
     },
     {
       "name" :"nlohmann-json"
-    },
-    {
-      "name" : "qt5"
     }
   ],
   "default-features": []
