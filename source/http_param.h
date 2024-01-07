@@ -30,13 +30,13 @@ struct ResultForm
     std::string concreteLevel;
     std::string structureType;
 
-    std::string structureTime;
-    std::string structureArea;
-    std::string structureLine;
-    std::string structureNum;
+    double structureTime;
+    double structureArea;
+    double structureLine;
+    int structureNum;
 
-    std::string structureHigh;
-    std::string structureCount;
+    double structureHigh;
+    int structureCount;
     std::string calculateResult;
     std::string createTime;
     int userId;

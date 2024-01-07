@@ -159,18 +159,19 @@ ResultForm CarbonSinkForm::toFrom()
     ResultForm form;
     form.province = _province.toStdString();
     form.city = _city.toStdString();
+    form.county = _county.toStdString();
     form.architecturalType =
         ReadableBuildingType.at(_buildingType).toStdString();
     form.cementType = _cementType.toStdString();
     form.cementLevel = _cementStrengthGrade.toStdString();
     form.concreteLevel = _concreteStrengthGrade.toStdString();
     form.structureType = _buildingStructureType.toStdString();
-    form.structureTime = std::to_string(_year);
-    form.structureArea = std::to_string(_area);
-    form.structureLine = std::to_string(_circumference);
-    form.structureNum = std::to_string(_floorCount);
-    form.structureHigh = std::to_string(_height);
-    form.structureCount = std::to_string(_buildingCount);
+    form.structureTime =(_year);
+    form.structureArea =(_area);
+    form.structureLine = (_circumference);
+    form.structureNum = (_floorCount);
+    form.structureHigh = (_height);
+    form.structureCount = _buildingCount;
     form.calculateResult = std::to_string(carbonSink());
     form.createTime = _createTime.toStdString();
     form.userId = NetworkInteraction::getInstance().getLoginResult().id;
@@ -201,13 +202,13 @@ void CarbonSinkForm::fromForm(ResultForm const& form)
     _cementStrengthGrade = toString(form.cementLevel);
     _concreteStrengthGrade = toString(form.concreteLevel);
     _buildingStructureType = toString(form.structureType);
-    _year = std::stoi(form.structureTime);
-    _area =  std::stod(form.structureArea);
-    _circumference =  std::stod(form.structureLine);
-    _floorCount =  std::stoi(form.structureNum);
-    _height =  std::stod(form.structureHigh);
-    _buildingCount =  std::stoi(form.structureCount);
-    _result =  std::stod(form.calculateResult);
+    _year = (form.structureTime);
+    _area = (form.structureArea);
+    _circumference = (form.structureLine);
+    _floorCount = (form.structureNum);
+    _height = (form.structureHigh);
+    _buildingCount = (form.structureCount);
+    _result = std::stod(form.calculateResult);
     _createTime = toString(form.createTime);
 }
 
