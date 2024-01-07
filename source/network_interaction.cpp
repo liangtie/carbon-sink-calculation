@@ -111,6 +111,7 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
     } catch (std::exception const& e) {
         QMessageBox::information(nullptr, "网络错误", e.what());
     }
+    rep->deleteLater();
 }
 
 NetworkInteraction::~NetworkInteraction() = default;
