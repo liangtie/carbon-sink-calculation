@@ -1,5 +1,4 @@
 #include <cmath>
-#include <cstdlib>
 #include <string>
 
 #include "carbon_sink_form.h"
@@ -148,7 +147,7 @@ double CarbonSinkForm::carbonSink()
     auto A_e = A * (F * 2 + 1) + F * H * P * 2;
     const auto result =
         (m * std::pow(A_e, n)) * std::pow(t, t_e) * N * a * b * C;
-    _result = result;
+    _result =  std::round(result * 100) / 100;
     return *_result;
 }
 
