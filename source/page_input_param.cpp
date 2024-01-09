@@ -157,7 +157,6 @@ PageInputParam::PageInputParam(QWidget* parent)
             CarbonSinkExporter exporter;
             exporter.exportToExcel(all_forms, savePath);
             savePath.replace("/","\\");
-            QMessageBox::information(this, "T",savePath);
            system(("explorer \"" + savePath + "\"\n").toStdString().c_str() );
         });
 
