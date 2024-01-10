@@ -127,28 +127,33 @@ QString CarbonSinkForm::address() const
 
 double CarbonSinkForm::carbonSink()
 {
+    using namespace constant;
+
     if (_result.has_value())
         return *_result;
 
-    using namespace constant;
     const auto t = year();
     const auto A = area();
     const auto P = circumference();
     const auto F = floorCount();
     const auto H = height();
-    const auto N = buildingCount();
-    constexpr auto t_e = 0.5;
-
-    const auto b = ConcreteStrengthGrade.at(concreteStrengthGrade());
-    const auto C = BuildingStructureType.at(buildingStructureType());
-    const auto a = CementType.value(cementType()).value(cementStrengthGrade());
+    const auto AF = A*F;
+    const auto AF2 = AF*2;
+    const auto FH = F* H;
+    const auto FHP = FH * P;
+    const auto FHP2 = FHP * 2;
+    const auto add = AF2 + FHP2 +  A;
+    const auto Ae = add;
     const auto [m, n] = BuildingTypeFactors.at(buildingType());
+    const auto Aen =  std::pow(Ae , n);
+    const auto t0_5 = std::pow(t, 0.5);
+      const auto a =
+            CementType.value(cementType()).value(cementStrengthGrade());
+    const auto Nabc =  buildingCount() * a * ConcreteStrengthGrade.at(concreteStrengthGrade()) *  BuildingStructureType.at(buildingStructureType());
 
-    auto A_e = A * (F * 2 + 1) + F * H * P * 2;
-    const auto result =
-        (m * std::pow(A_e, n)) * std::pow(t, t_e) * N * a * b * C;
-    _result =  std::round(result * 100) / 100;
-    return *_result;
+    const auto y = m * Aen * t0_5 * Nabc;
+       _result = std::round(y );
+        return *_result;
 }
 
 ResultForm CarbonSinkForm::toFrom()
@@ -165,8 +170,8 @@ ResultForm CarbonSinkForm::toFrom()
     form.cementLevel = _cementStrengthGrade.toStdString();
     form.concreteLevel = _concreteStrengthGrade.toStdString();
     form.structureType = _buildingStructureType.toStdString();
-    form.structureTime =(_year);
-    form.structureArea =(_area);
+    form.structureTime = (_year);
+    form.structureArea = (_area);
     form.structureLine = (_circumference);
     form.structureNum = (_floorCount);
     form.structureHigh = (_height);
@@ -207,7 +212,7 @@ void CarbonSinkForm::fromForm(ResultForm const& form)
     _floorCount = (form.structureNum);
     _height = (form.structureHigh);
     _buildingCount = (form.structureCount);
-    _result = std::stod(form.calculateResult);
+    // _result = std::stod(form.calculateResult);
     _createTime = toString(form.createTime);
 }
 

@@ -117,7 +117,7 @@ PageInputParam::PageInputParam(QWidget* parent)
 
                 auto form = exportForm();
                 ui->labelResult->setText(
-                    QString("%1").arg(form->carbonSink(), 0, 'f', 2));
+                    QString("%1").arg(form->carbonSink()));
                 NetworkInteraction::getInstance().uploadResult(form->toFrom());
             });
 

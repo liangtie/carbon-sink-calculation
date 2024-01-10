@@ -26,7 +26,7 @@ static const auto BuildingTypeFactors = std::map<int, BuildTypeFactor> {
 
     std::make_pair(RB, BuildTypeFactor {0.368, 0.992}),
     std::make_pair(IB, BuildTypeFactor {0.511, 0.976}),
-    std::make_pair(CB, BuildTypeFactor {0.532, 0.968}),
+    std::make_pair(CB, BuildTypeFactor {0.523, 0.968}),
     std::make_pair(PB, BuildTypeFactor {0.421, 0.985}),
     std::make_pair(OB, BuildTypeFactor {0.479, 0.980}),
 
