@@ -212,7 +212,7 @@ void CarbonSinkForm::fromForm(ResultForm const& form)
     _floorCount = (form.structureNum);
     _height = (form.structureHigh);
     _buildingCount = (form.structureCount);
-    // _result = std::stod(form.calculateResult);
+    _result = std::stod(form.calculateResult);
     _createTime = toString(form.createTime);
 }
 
