@@ -6,6 +6,7 @@
 #include "network_interaction.h"
 #include "ui_page_login.h"
 #include "user_role.h"
+#include "dialog_add_new_user.h"
 
 PageLogin::PageLogin(QWidget* parent)
     : QWidget(parent)
@@ -24,7 +25,14 @@ PageLogin::PageLogin(QWidget* parent)
 
                 AccountVerifyPass(UserRoles::ADMIN);
             });
-
+    connect(ui->btnAddUser,
+            &QPushButton::clicked,
+            this,
+            [&]()
+            {
+                DialogAddNewUser d(this);
+                d.exec();
+            });
 
 }
 

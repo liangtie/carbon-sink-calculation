@@ -17,11 +17,9 @@
 #include "carbon_sink_exporter.h"
 #include "carbon_sink_form.h"
 #include "constant.h"
-#include "dialog_add_new_user.h"
 #include "network_interaction.h"
 #include "pca_model.h"
 #include "ui_page_input_param.h"
-#include "user_role.h"
 
 PageInputParam::PageInputParam(QWidget* parent)
     : QWidget(parent)
@@ -171,15 +169,6 @@ PageInputParam::PageInputParam(QWidget* parent)
                     "建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
                     "2023年)仍在使用，应填入73。输入1~200 内整数");
             });
-
-    connect(ui->btnAddUser,
-            &QPushButton::clicked,
-            this,
-            [&]()
-            {
-                DialogAddNewUser d(this);
-                d.exec();
-            });
 }
 
 PageInputParam::~PageInputParam()
@@ -228,7 +217,3 @@ auto PageInputParam::exportForm() const -> CarbonSinkFormPtr
     return form;
 }
 
-void PageInputParam::updateUserRole(int role)
-{
-    ui->btnAddUser->setVisible(role == UserRoles::ADMIN);
-}

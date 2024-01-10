@@ -2220,3 +2220,22 @@ PlotWidget {
   /* Fix cut labels in plots #134 */
   padding: 0px;
 }
+
+QPushButton#btnAddUser{
+background : transparent;
+border : none;
+color : black;
+}
+
+QPushButton#btnAddUser:hover {
+color : rgb(102, 80, 163);
+}
+
+QPushButton#btnAddUser:pressed {
+color : #0020ff;
+}
+
+QPushButton#btnAddUser:selected {
+color : #0000ff;
+
+}

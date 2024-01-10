@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget* parent)
            &NetworkInteraction::LoginSuccess,
             [this](int role)
             {
-                _pageInputParam->updateUserRole(role);
                 ui->stackedWidget->setCurrentWidget(_pageInputParam);
             });
 
