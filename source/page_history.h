@@ -26,6 +26,8 @@ class PageHistory : public QWidget
   private:
     Ui::PageHistory* ui;
     std::list<QWidget*> _records;
+    std::list<std::shared_ptr<CarbonSinkForm>> _forms;
+
   signals:
     void goBack();
 };

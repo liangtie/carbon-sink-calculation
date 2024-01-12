@@ -71,8 +71,6 @@ MainWindow::MainWindow(QWidget* parent)
             &PageInputParam::show_usr_mgr,
             this,
             []() { NetworkInteraction::getInstance().getUserList(true); });
-
-    NetworkInteraction::getInstance().getUserList(true);
 }
 
 MainWindow::~MainWindow()

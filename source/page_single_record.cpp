@@ -24,6 +24,7 @@ auto toString(T const& v)
 void PageSingleRecord::init(CarbonSinkForm const& form)
 {
     using namespace constant;
+    ui->lb_location->setText(toString(form.address()));
     ui->lb_year->setText(toString(form.year()));
     ui->lb_building_area->setText(toString(form.area()));
     ui->lb_circumference->setText(toString(form.circumference()));
@@ -36,5 +37,6 @@ void PageSingleRecord::init(CarbonSinkForm const& form)
     ui->lb_structure_t->setText(toString(form.buildingStructureType()));
     ui->lb_cement_t->setText(toString(form.cementType()));
     ui->lb_cement_grade->setText(toString(form.concreteStrengthGrade()));
-    ui->lb_result->setText(toString(form.carbonSink()));
+    ui->lb_result->setText(toString(  static_cast<unsigned long long>( form.carbonSink())));
+    ui->lb_record_time->setText(form.createTime());
 }

@@ -17,7 +17,7 @@ DialogAddNewUser::DialogAddNewUser(QWidget* parent)
     ui->setupUi(this);
 
     ui->comboRole->addItem("普通用户", UserRoles::NORMAL_USER);
-    ui->comboRole->addItem("管理员", UserRoles::ADMIN);
+    // ui->comboRole->addItem("管理员", UserRoles::ADMIN);
 
     connect(ui->buttonBox,
             &QDialogButtonBox::accepted,

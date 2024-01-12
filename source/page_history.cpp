@@ -17,15 +17,13 @@ PageHistory::PageHistory(QWidget* parent)
     ui->setupUi(this);
 
     connect(
-        &NetworkInteraction::getInstance(),
-        &NetworkInteraction::resultReady,
+        ui->btn_export_history,
+        &QPushButton::clicked,
         this,
-        [&]()
+        [this]()
         {
-            std::list<CarbonSinkFormPtr> all_forms =
-                NetworkInteraction::getInstance().getResultFetched();
 
-            if (!all_forms.size())
+            if (!_forms.size())
                 return;
 
             auto savePath =
@@ -35,15 +33,12 @@ PageHistory::PageHistory(QWidget* parent)
                 return;
 
             CarbonSinkExporter exporter;
-            exporter.exportToExcel(all_forms, savePath);
+            exporter.exportToExcel(_forms, savePath);
             savePath.replace("/", "\\");
             system(("explorer \"" + savePath + "\"\n").toStdString().c_str());
         });
 
-    connect(ui->btn_export_history,
-            &QPushButton::clicked,
-            this,
-            []() { NetworkInteraction::getInstance().startFetchResult(); });
+        connect(ui->btn_back,&QPushButton::clicked , this, &PageHistory::goBack);
 }
 
 PageHistory::~PageHistory()
@@ -64,4 +59,5 @@ void PageHistory::updateHistory(
     }
 
     _records = records;
+    _forms = forms;
 }
