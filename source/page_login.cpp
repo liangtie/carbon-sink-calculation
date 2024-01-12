@@ -23,7 +23,7 @@ PageLogin::PageLogin(QWidget* parent)
                     {ui->editUser->text().toStdString(),
                      ui->editPass->text().toStdString()});
 
-                AccountVerifyPass(UserRoles::ADMIN);
+                accountVerifyPass(UserRoles::ADMIN);
             });
     connect(ui->btnAddUser,
             &QPushButton::clicked,
