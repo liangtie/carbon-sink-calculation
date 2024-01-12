@@ -6,8 +6,10 @@
 #include <map>
 #include <memory>
 #include <optional>
+
 #include <QtNetwork/qnetworkaccessmanager.h>
 #include <qobject.h>
+
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "http_param.h"
@@ -16,8 +18,6 @@
 class CarbonSinkForm;
 using CarbonSinkFormPtr = std::shared_ptr<CarbonSinkForm>;
 using json = nlohmann::json;
-
-
 
 enum RequestKind
 {
@@ -56,7 +56,7 @@ class NetworkInteraction : public QObject
 
     void rmUser(int id);
 
-    void getUserList();
+    void getUserList(bool show_mgr = false);
 
     void updateUserPassword(UserInfo const& info);
 
@@ -77,8 +77,8 @@ class NetworkInteraction : public QObject
 
     void loginSuccess(int role);
     void resultReady();
-    void getUsrInfSuccess();
-    void usrInfoChanged(UserInfoList);
+    void getUsrInfSuccess(bool show_mgr);
+    void usrInfoChanged();
 
   protected:
     NetworkInteraction();
@@ -91,6 +91,7 @@ class NetworkInteraction : public QObject
     LoginResponse _loginResponse;
     std::list<std::shared_ptr<CarbonSinkForm>> _resultsFetched;
     UserInfoList _user_info;
+    bool _show_mgr {};
 };
 
 Q_DECLARE_METATYPE(std::list<std::shared_ptr<CarbonSinkForm>>);

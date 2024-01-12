@@ -2,8 +2,9 @@
 #define CARBON_SINK_FORM_H
 
 #include <QString>
-#include "utils.h"
 #include <optional>
+
+#include "utils.h"
 
 struct ResultForm;
 
@@ -82,18 +83,20 @@ class CarbonSinkForm
 
     double carbonSink();
 
+    double carbonSink() const { return _result.has_value() ? *_result : 0; }
+
     ResultForm toFrom();
 
     void fromForm(ResultForm const& form);
 
     QString province() const;
-    void setProvince(const QString &newProvince);
+    void setProvince(const QString& newProvince);
 
     QString city() const;
-    void setCity(const QString &newCity);
+    void setCity(const QString& newCity);
 
     QString county() const;
-    void setCounty(const QString &newCounty);
+    void setCounty(const QString& newCounty);
 
     QString createTime() const;
 
@@ -114,7 +117,7 @@ class CarbonSinkForm
     QString _province;
     QString _city;
     QString _county;
-    QString _createTime = QString::fromStdString( Utils::getCurrentDateTime());
+    QString _createTime = QString::fromStdString(Utils::getCurrentDateTime());
 };
 
 #endif

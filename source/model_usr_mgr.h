@@ -24,11 +24,6 @@ class ModelUserMgr : public QAbstractTableModel
     ModelUserMgr(QObject* parent = nullptr);
     ~ModelUserMgr();
 
-
-    void rmUser(int row);
-
-    void updateUserPassword(int row);
-
     void setUsers(UserInfoList user_list);
 
     Qt::ItemFlags flags(const QModelIndex& index) const override;

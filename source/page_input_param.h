@@ -2,9 +2,12 @@
 #define PAGE_INPUT_PARAM_H
 
 #include <QWidget>
-#include <memory>
 #include <list>
-namespace Ui {
+#include <memory>
+
+#include <qtmetamacros.h>
+namespace Ui
+{
 class PageInputParam;
 }
 
@@ -16,23 +19,26 @@ class PageInputParam : public QWidget
     Q_OBJECT
 
   public:
-    explicit PageInputParam(QWidget *parent = nullptr);
+    explicit PageInputParam(QWidget* parent = nullptr);
     ~PageInputParam();
 
     void clearForm();
 
     [[nodiscard]] auto formIsValid() const -> bool;
 
-    [[nodiscard]] auto exportForm() const ->  CarbonSinkFormPtr;
+    [[nodiscard]] auto exportForm() const -> CarbonSinkFormPtr;
 
     [[nodiscard]] int role() const;
     void setRole(int newRole);
 
   private:
-    Ui::PageInputParam *ui;
+    Ui::PageInputParam* ui;
     std::unique_ptr<PcaModel> _pcaModel;
-    std::list<CarbonSinkFormPtr> _forms;
-    int _role{};
+    int _role {};
+
+  signals:
+    void show_usr_mgr();
+    void show_history();
 };
 
-#endif // PAGE_INPUT_PARAM_H
+#endif  // PAGE_INPUT_PARAM_H

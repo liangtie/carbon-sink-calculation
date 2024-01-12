@@ -11,15 +11,17 @@
 #include <qlineedit.h>
 #include <qmessagebox.h>
 #include <qprocess.h>
+#include <qpushbutton.h>
 #include <qvalidator.h>
 #include <qvariant.h>
-#include "user_role.h"
+
 #include "carbon_sink_exporter.h"
 #include "carbon_sink_form.h"
 #include "constant.h"
 #include "network_interaction.h"
 #include "pca_model.h"
 #include "ui_page_input_param.h"
+#include "user_role.h"
 
 PageInputParam::PageInputParam(QWidget* parent)
     : QWidget(parent)
@@ -98,7 +100,6 @@ PageInputParam::PageInputParam(QWidget* parent)
                     QMessageBox::warning(this, "错误", "无效的表单");
                     return;
                 }
-                _forms.push_back(exportForm());
             }
         });
     connect(ui->btnCancel, &QPushButton::clicked, this, [&]() { clearForm(); });
@@ -114,8 +115,8 @@ PageInputParam::PageInputParam(QWidget* parent)
                 }
 
                 auto form = exportForm();
-                ui->labelResult->setText(
-                    QString("%1").arg( static_cast<unsigned long long >(form->carbonSink())));
+                ui->labelResult->setText(QString("%1").arg(
+                    static_cast<unsigned long long>(form->carbonSink())));
                 NetworkInteraction::getInstance().uploadResult(form->toFrom());
             });
 
@@ -123,40 +124,6 @@ PageInputParam::PageInputParam(QWidget* parent)
             &QPushButton::clicked,
             this,
             [&]() { NetworkInteraction::getInstance().startFetchResult(); });
-
-    connect(
-        &NetworkInteraction::getInstance(),
-        &NetworkInteraction::resultReady,
-        this,
-        [&]()
-        {
-            if (formIsValid()) {
-                auto form = exportForm();
-                _forms.push_back(form);
-                NetworkInteraction::getInstance().uploadResult(form->toFrom());
-            }
-
-            std::list<CarbonSinkFormPtr> all_forms =
-                NetworkInteraction::getInstance().getResultFetched();
-
-            for (const auto& f : _forms) {
-                all_forms.push_back(f);
-            }
-
-            if (!all_forms.size())
-                return;
-
-            auto savePath =
-                QFileDialog::getSaveFileName(this, "选择Excel保存路径" );
-
-            if (savePath.isEmpty())
-                return;
-
-            CarbonSinkExporter exporter;
-            exporter.exportToExcel(all_forms, savePath);
-            savePath.replace("/","\\");
-           system(("explorer \"" + savePath + "\"\n").toStdString().c_str() );
-        });
 
     connect(ui->btnHelp,
             &QPushButton::clicked,
@@ -169,6 +136,16 @@ PageInputParam::PageInputParam(QWidget* parent)
                     "建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
                     "2023年)仍在使用，应填入73。输入1~200 内整数");
             });
+
+    connect(ui->btnUserMgr,
+            &QPushButton::clicked,
+            this,
+            &PageInputParam::show_usr_mgr);
+
+    connect(ui->btnHistory,
+            &QPushButton::clicked,
+            this,
+            &PageInputParam::show_history);
 }
 
 PageInputParam::~PageInputParam()
@@ -227,4 +204,3 @@ void PageInputParam::setRole(int newRole)
     _role = newRole;
     ui->btnUserMgr->setVisible(newRole == UserRoles::ADMIN);
 }
-

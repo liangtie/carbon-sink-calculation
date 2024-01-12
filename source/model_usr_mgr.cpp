@@ -14,10 +14,6 @@ ModelUserMgr::ModelUserMgr(QObject* parent)
 
 ModelUserMgr::~ModelUserMgr() {}
 
-void ModelUserMgr::rmUser(int row) {}
-
-void ModelUserMgr::updateUserPassword(int row) {}
-
 void ModelUserMgr::setUsers(UserInfoList user_list)
 {
     beginResetModel();

@@ -5,6 +5,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QTextStream>
+#include <cstddef>
 #include <exception>
 #include <memory>
 #include <set>
@@ -63,6 +64,7 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
 {
     QByteArray bts = rep->readAll();
     QString str(bts);
+    // QMessageBox::information(nullptr, "RP:", str);
 
     try {
         auto j = json::parse(str.toStdString());
@@ -130,7 +132,7 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
                 case GET_ALL_USR: {
                     b.data["records"].get_to(_user_info);
                     if (success) {
-                        emit getUsrInfSuccess();
+                        emit getUsrInfSuccess(_show_mgr);
                     } else {
                         QMessageBox::warning(
                             nullptr, "提示", "获取用户信息失败");
@@ -139,12 +141,12 @@ void NetworkInteraction::processResponse(QNetworkReply* rep)
                 }
             }
             static const auto kUserInfoChangeT = std::set<int> {
-                ADD_USER, RM_USR, GET_ALL_USR, UPDATE_USR_PASSWORD};
+                ADD_USER, RM_USR, UPDATE_USR_PASSWORD};
 
             if (kUserInfoChangeT.find(loc->second.kind)
                 != kUserInfoChangeT.end())
             {
-                emit usrInfoChanged(_user_info);
+                getUserList();
             }
 
             _requests.erase(loc);
@@ -171,14 +173,18 @@ void NetworkInteraction::addUser(AddUserForm const& form)
 
 void NetworkInteraction::rmUser(int id)
 {
-    _requests.try_emplace(sendRequest(id, "user/delete"),
+    QNetworkRequest request((QUrl(QString(url) + QString("user/delete/%1").arg(id))));
+    _requests.try_emplace( _netAccess->post(request, ""),
                           ChainedRequest {RM_USR});
 }
 
-void NetworkInteraction::getUserList()
+
+void NetworkInteraction::getUserList(bool show_mgr)
 {
+    _show_mgr = show_mgr;
     _requests.try_emplace(sendRequest("", "user/pageList"),
                           ChainedRequest {GET_ALL_USR});
+
 }
 
 void NetworkInteraction::updateUserPassword(UserInfo const& info)

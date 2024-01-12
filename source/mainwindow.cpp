@@ -10,7 +10,7 @@
 #include "page_input_param.h"
 #include "page_login.h"
 #include "page_user_mgr.h"
-
+#include "user_role.h"
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -36,10 +36,21 @@ MainWindow::MainWindow(QWidget* parent)
     connect(&NetworkInteraction::getInstance(),
             &NetworkInteraction::getUsrInfSuccess,
             this,
-            [this]()
+            [this](bool show_mgr)
             {
                 _pageUserMgr->updateUserInfoList();
-                ui->stackedWidget->setCurrentWidget(_pageUserMgr);
+                if (show_mgr)
+                    ui->stackedWidget->setCurrentWidget(_pageUserMgr);
+            });
+
+    connect(&NetworkInteraction::getInstance(),
+            &NetworkInteraction::resultReady,
+            this,
+            [this]()
+            {
+                _pageHistory->updateHistory(
+                    NetworkInteraction::getInstance().getResultFetched());
+                ui->stackedWidget->setCurrentWidget(_pageHistory);
             });
 
     connect(_pageHistory,
@@ -51,7 +62,17 @@ MainWindow::MainWindow(QWidget* parent)
             this,
             [this] { ui->stackedWidget->setCurrentWidget(_pageInputParam); });
 
-    NetworkInteraction::getInstance().getUserList();
+    connect(_pageInputParam,
+            &PageInputParam::show_history,
+            this,
+            []() { NetworkInteraction::getInstance().startFetchResult(); });
+
+    connect(_pageInputParam,
+            &PageInputParam::show_usr_mgr,
+            this,
+            []() { NetworkInteraction::getInstance().getUserList(true); });
+
+    NetworkInteraction::getInstance().getUserList(true);
 }
 
 MainWindow::~MainWindow()

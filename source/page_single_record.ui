@@ -120,7 +120,7 @@
     </widget>
    </item>
    <item row="7" column="1">
-    <widget class="QLabel" name="lb_buildidng_area">
+    <widget class="QLabel" name="lb_building_area">
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -148,7 +148,7 @@
     </widget>
    </item>
    <item row="9" column="1">
-    <widget class="QLabel" name="lb_layer_count">
+    <widget class="QLabel" name="lb_floor_count">
      <property name="text">
       <string>TextLabel</string>
      </property>
