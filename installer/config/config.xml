@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
-    <Name>CarbonSinkCalculation</Name>
+    <Name>Carbon Sink Calculation</Name>
     <Version>1.0.0</Version>
-    <Title> CarbonSinkCalculation Installer</Title>
+    <Title> Carbon Sink Calculation Installer</Title>
     <Publisher></Publisher>
     <StartMenuDir></StartMenuDir>
-    <TargetDir>@HomeDir@/AAAA/CarbonSinkCalculation/1.0.0</TargetDir>
+    <TargetDir>@HomeDir@/HenanPolytechnicUniversity/CarbonSinkCalculation/1.0.0</TargetDir>
 </Installer>
