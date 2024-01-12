@@ -119,7 +119,7 @@ PageInputParam::PageInputParam(QWidget* parent)
                 NetworkInteraction::getInstance().uploadResult(form->toFrom());
             });
 
-    connect(ui->btnExportExcel,
+    connect(ui->btnHistory,
             &QPushButton::clicked,
             this,
             [&]() { NetworkInteraction::getInstance().startFetchResult(); });
@@ -215,5 +215,15 @@ auto PageInputParam::exportForm() const -> CarbonSinkFormPtr
     form->setCity(ui->cbCity->currentText());
     form->setCounty(ui->cbCounty->currentText());
     return form;
+}
+
+int PageInputParam::role() const
+{
+    return _role;
+}
+
+void PageInputParam::setRole(int newRole)
+{
+    _role = newRole;
 }
 
