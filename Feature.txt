@@ -1,0 +1,52 @@
+软著名称：建筑碳汇计算软件
+软件分类： BIM / CAE
+开发的硬件环境：
+
+Processor	12th Gen Intel(R) Core(TM) i7-12700H   2.30 GHz
+Installed RAM	32.0 GB (31.7 GB usable)
+Device ID	B327F8EA-4CDA-496B-867D-EF89EC5D694D
+Product ID	00331-10000-00001-AA677
+System type	64-bit operating system, x64-based processor
+
+运行的硬件环境：
+
+Processor	12th Gen Intel(R) Core(TM) i7-12700H   2.30 GHz
+Installed RAM	32.0 GB (31.7 GB usable)
+Device ID	B327F8EA-4CDA-496B-867D-EF89EC5D694D
+Product ID	00331-10000-00001-AA677
+System type	64-bit operating system, x64-based processor
+
+开发该软件的操作系统：
+
+Edition	Windows 11 Pro
+Version	22H2
+OS build	22621.2861
+Experience	Windows Feature Experience Pack 1000.22681.1000.0
+
+
+软件开发环境/开发工具：
+
+Ot Creator 11.0.2
+Based on Qt 6.4.3 (MSVC 2019, x86 64)
+Built on Aug 12 2023 01:19:23
+From revision 7bb49b58df
+
+该软件的运行平台/操作系统：
+
+Windows7/Windows10/Windows11
+
+软件运行支撑环境/支持软件：
+
+Microsoft Visual C++ Runtime 2015-2022
+
+编程语言： C++
+
+源程序量： 19846行
+技术特点：跨平台，可以支持Windows/MacOS/Ubuntu、MVC框架、前后端分离
+
+
+
+
+
+
+
