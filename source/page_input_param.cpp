@@ -26,7 +26,7 @@
 PageInputParam::PageInputParam(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::PageInputParam)
-    , _pcaModel(std::make_unique<PcaModel>(":/qdarkstyle/light/pca.json"))
+    , _pcaModel(std::make_unique<PcaModel>(":/res/pca.json"))
 {
     ui->setupUi(this);
 
@@ -133,8 +133,8 @@ PageInputParam::PageInputParam(QWidget* parent)
                 QMessageBox::information(
                     this,
                     "提示",
-                    "建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
-                    "2023年)仍在使用，应填入73。输入1~200 内整数");
+                    "建成时间是指建筑建成到今天使用的年数。如建筑于1950年建成，到了今天("
+                    "2024年)仍在使用，应填入74。输入1~200 内整数");
             });
 
     connect(ui->btnUserMgr,

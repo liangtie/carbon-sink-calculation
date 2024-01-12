@@ -209,8 +209,9 @@
         <file>rc/window_undock_pressed.png</file>
         <file>rc/window_undock_pressed@2x.png</file>
     </qresource>
-    <qresource prefix="/qdarkstyle/light">
+    <qresource prefix="/res">
         <file>lightstyle.css</file>
         <file>pca.json</file>
+        <file>co2.ico</file>
     </qresource>
 </RCC>

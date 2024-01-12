@@ -98,6 +98,16 @@ set_property(TARGET carbon-sink-calculation PROPERTY OUTPUT_NAME carbon-sink-cal
 
 target_compile_features(carbon-sink-calculation PRIVATE cxx_std_20)
 
+if(WIN32)
+    if(MSVC)
+        target_sources(
+            carbon-sink-calculation PRIVATE
+            style/carbon-sink-calculation.rc
+        )
+    endif()
+endif(WIN32)
+
+
 target_link_libraries(carbon-sink-calculation
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
