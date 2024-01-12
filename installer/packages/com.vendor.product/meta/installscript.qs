@@ -33,10 +33,10 @@ function Component()
   //  if (!installer.addWizardPage(component, "Page", QInstaller.TargetDirectory))
   //      console.log("Could not add the dynamic page.");
   component.addOperation("CreateShortcut",
-                            "@TargetDir@/建筑碳汇计算.exe",// target
+                            "@TargetDir@/carbon-sink-calculation.exe",// target
                             "@DesktopDir@/建筑碳汇计算.lnk",// link-path
                             "workingDirectory=@TargetDir@",// working-dir
-                            "iconPath=@TargetDir@/建筑碳汇计算.exe", "iconId=0",// icon
+                            "iconPath=@TargetDir@/carbon-sink-calculation.exe", "iconId=0",// icon
                             "description=建筑碳汇计算");// description
 
 }

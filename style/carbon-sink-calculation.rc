@@ -15,7 +15,7 @@ BEGIN
 			VALUE "FileVersion", "1.0.0"
 			VALUE "InternalName", "建筑碳汇计算"
 			VALUE "LegalCopyright", "Copyright (C) 2024-2034 Henan Polytechnic University"
-			VALUE "OriginalFilename", "建筑碳汇计算.exe"
+			VALUE "OriginalFilename", "carbon-sink-calculation.exe"
 			VALUE "ProductName", "建筑碳汇计算"
 			VALUE "ProductVersion", "1.0.0"
 		END
