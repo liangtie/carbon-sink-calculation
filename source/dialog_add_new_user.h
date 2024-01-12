@@ -3,7 +3,10 @@
 
 #include <QDialog>
 
-namespace Ui {
+#include <qtmetamacros.h>
+
+namespace Ui
+{
 class DialogAddNewUser;
 }
 
@@ -12,11 +15,14 @@ class DialogAddNewUser : public QDialog
     Q_OBJECT
 
   public:
-    explicit DialogAddNewUser(QWidget *parent = nullptr);
+    explicit DialogAddNewUser(QWidget* parent = nullptr);
     ~DialogAddNewUser();
 
   private:
-    Ui::DialogAddNewUser *ui;
+    Ui::DialogAddNewUser* ui;
+
+  signals:
+    void userAdded();
 };
 
-#endif // DIALOG_ADD_NEW_USER_H
+#endif  // DIALOG_ADD_NEW_USER_H

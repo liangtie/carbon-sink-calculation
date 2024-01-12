@@ -37,7 +37,6 @@ http://101.200.162.174:8088/";
  
  3、删除用户  user/delete      （post 请求）    url 后排拼接 用户id （用户id 为列表数据可获取）
  4、修改密码  user/delete      （post 请求）    url 后排拼接 用户id （用户id 为列表数据可获取）  
-  
 5、提交 计算结果接口  calculate/insert  （Json格式 post 请求）
 
   province 省

@@ -4,22 +4,30 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class PageLogin;
 class PageInputParam;
+class PageHistory;
+class PageUserMgr;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
+  public:
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
+  private:
+    Ui::MainWindow* ui;
     PageLogin* _pageLogin;
     PageInputParam* _pageInputParam;
+    PageHistory* _pageHistory;
+    PageUserMgr* _pageUserMgr;
+
 };
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

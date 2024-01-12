@@ -7,11 +7,9 @@
 
 #include <qabstractitemmodel.h>
 #include <qobject.h>
-
+#include "usr_info.h"
 struct AddUserForm;
-struct UserInfo;
-using UserInfoPtr = std::shared_ptr<UserInfo>;
-using UserInfoList = std::vector<UserInfoPtr>;
+
 class ModelUserMgr : public QAbstractTableModel
 {
     Q_OBJECT
@@ -26,7 +24,6 @@ class ModelUserMgr : public QAbstractTableModel
     ModelUserMgr(QObject* parent = nullptr);
     ~ModelUserMgr();
 
-    void addUser(AddUserForm const& usr);
 
     void rmUser(int row);
 
@@ -45,6 +42,10 @@ class ModelUserMgr : public QAbstractTableModel
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+
+    auto getUsrInfo(int row){
+        return _user_list[row] ;
+    }
 
   private:
     UserInfoList _user_list;

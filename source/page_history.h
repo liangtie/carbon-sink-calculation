@@ -17,6 +17,10 @@ class PageHistory : public QWidget
 
   private:
     Ui::PageHistory *ui;
+
+  signals:
+    void goBack();
+
 };
 
 #endif // PAGE_HISTORY_H

@@ -3,13 +3,12 @@
 
 #include <qstring.h>
 
-#include "user_role.h"
-
-struct UserInfo
+#include "http_param.h"
+struct UserInfo : AddUserForm
 {
-    QString name;
-    int id;
-    UserRoles role;
+    int id {};
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        UserInfo, name, account, password, company, role, createTime, id)
 };
-
+using UserInfoList = std::vector<UserInfo>;
 #endif

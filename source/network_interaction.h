@@ -1,21 +1,41 @@
 #ifndef NETWORK_INTERACTION_H
 #define NETWORK_INTERACTION_H
 
+#include <functional>
 #include <list>
 #include <map>
 #include <memory>
-#include <string>
-#include <unordered_map>
-
+#include <optional>
 #include <QtNetwork/qnetworkaccessmanager.h>
 #include <qobject.h>
-
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "http_param.h"
+#include "usr_info.h"
 
 class CarbonSinkForm;
 using CarbonSinkFormPtr = std::shared_ptr<CarbonSinkForm>;
+using json = nlohmann::json;
+
+
+
+enum RequestKind
+{
+    LOGIN,
+    ADD_USER,
+    UPLOAD_RESULT,
+    GET_RESULTS,
+
+    RM_USR,
+    UPDATE_USR_PASSWORD,
+    GET_ALL_USR
+};
+struct ChainedRequest
+{
+    RequestKind kind;
+    std::optional<std::function<void(json)>> accept {};
+    std::optional<std::function<void(json)>> reject {};
+};
 
 class NetworkInteraction : public QObject
 {
@@ -28,19 +48,17 @@ class NetworkInteraction : public QObject
         return ins;
     }
 
-    enum RequestKind
-    {
-        LOGIN,
-        ADD_USER,
-        UPLOAD_RESULT,
-        GET_RESULTS,
-    };
-
     ~NetworkInteraction() override;
 
     void login(LoginForm const& form);
 
     void addUser(AddUserForm const& from);
+
+    void rmUser(int id);
+
+    void getUserList();
+
+    void updateUserPassword(UserInfo const& info);
 
     void uploadResult(ResultForm const& form);
 
@@ -53,11 +71,14 @@ class NetworkInteraction : public QObject
 
     auto& getResultFetched() const { return _resultsFetched; }
 
+    auto& getUserInfo() const { return _user_info; }
+
   signals:
 
-    void AddUserSuccess(bool success);
-    void LoginSuccess(int role);
+    void loginSuccess(int role);
     void resultReady();
+    void getUsrInfSuccess();
+    void usrInfoChanged(UserInfoList);
 
   protected:
     NetworkInteraction();
@@ -66,9 +87,11 @@ class NetworkInteraction : public QObject
 
   private:
     QNetworkAccessManager* _netAccess;
-    std::map<QNetworkReply*, RequestKind> _replies;
+    std::map<QNetworkReply*, ChainedRequest> _requests;
     LoginResponse _loginResponse;
     std::list<std::shared_ptr<CarbonSinkForm>> _resultsFetched;
+    UserInfoList _user_info;
 };
 
+Q_DECLARE_METATYPE(std::list<std::shared_ptr<CarbonSinkForm>>);
 #endif

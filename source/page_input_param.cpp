@@ -13,7 +13,7 @@
 #include <qprocess.h>
 #include <qvalidator.h>
 #include <qvariant.h>
-
+#include "user_role.h"
 #include "carbon_sink_exporter.h"
 #include "carbon_sink_form.h"
 #include "constant.h"
@@ -225,5 +225,6 @@ int PageInputParam::role() const
 void PageInputParam::setRole(int newRole)
 {
     _role = newRole;
+    ui->btnUserMgr->setVisible(newRole == UserRoles::ADMIN);
 }
 

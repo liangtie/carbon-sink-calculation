@@ -25,7 +25,7 @@ class PageInputParam : public QWidget
 
     [[nodiscard]] auto exportForm() const ->  CarbonSinkFormPtr;
 
-    int role() const;
+    [[nodiscard]] int role() const;
     void setRole(int newRole);
 
   private:
