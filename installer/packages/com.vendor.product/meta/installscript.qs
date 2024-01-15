@@ -34,10 +34,10 @@ function Component()
   //      console.log("Could not add the dynamic page.");
   component.addOperation("CreateShortcut",
                             "@TargetDir@/carbon-sink-calculation.exe",// target
-                            "@DesktopDir@/建筑碳汇计算.lnk",// link-path
+                            "@DesktopDir@/城市建筑碳汇量计算.lnk",// link-path
                             "workingDirectory=@TargetDir@",// working-dir
                             "iconPath=@TargetDir@/carbon-sink-calculation.exe", "iconId=0",// icon
-                            "description=建筑碳汇计算");// description
+                            "description=城市建筑碳汇量计算");// description
 
 }
 

@@ -11,12 +11,12 @@ BEGIN
 		BLOCK "040904E4"
 		BEGIN
 			VALUE "CompanyName", "Henan Polytechnic University"
-			VALUE "FileDescription", "建筑碳汇计算"
+			VALUE "FileDescription", "城市建筑碳汇量计算"
 			VALUE "FileVersion", "1.0.0"
-			VALUE "InternalName", "建筑碳汇计算"
+			VALUE "InternalName", "城市建筑碳汇量计算"
 			VALUE "LegalCopyright", "Copyright (C) 2024-2034 Henan Polytechnic University"
 			VALUE "OriginalFilename", "carbon-sink-calculation.exe"
-			VALUE "ProductName", "建筑碳汇计算"
+			VALUE "ProductName", "城市建筑碳汇量计算"
 			VALUE "ProductVersion", "1.0.0"
 		END
 	END
